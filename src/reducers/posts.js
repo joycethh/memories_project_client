@@ -7,7 +7,7 @@ export default (posts = [], action) => {
       //we can return action.payload,instead of "state";
       return action.payload;
     case "CREATE":
-      return posts;
+      return [...posts, action.payload];
     default:
       return posts;
   }

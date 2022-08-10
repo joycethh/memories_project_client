@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import { Button, Typography, Paper, TextField } from "@material-ui/core";
 import Filebase from "react-file-base64";
+import { useDispatch } from "react-redux";
+
+//import the ceate action from the action
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [postData, setPostData] = useState({
     creator: "",
@@ -14,8 +19,10 @@ const Form = () => {
     selectedFile: "",
   });
 
-  const handleSubmit = () => {
-    console.log("submit clicked");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //pass in the "state", the postData that the user just created
+    dispatch(createPost(postData));
   };
 
   const handleClear = () => {
@@ -81,6 +88,7 @@ const Form = () => {
           color="primary"
           size="large"
           type="submit"
+          onSubmit={handleSubmit}
           fullWidth
         >
           Submit
