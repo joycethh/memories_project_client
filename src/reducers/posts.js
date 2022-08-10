@@ -1,11 +1,14 @@
 //reducer cases
-export default (state = [], action) => {
+export default (posts = [], action) => {
   switch (action.type) {
     case "FETCH_ALL":
-      return state;
+      //The logic here is that we renanme the "state" as posts,
+      //and since we dipatch the function in action folder, we got the data back as action.payload
+      //we can return action.payload,instead of "state";
+      return action.payload;
     case "CREATE":
-      return state;
+      return posts;
     default:
-      return state;
+      return posts;
   }
 };
