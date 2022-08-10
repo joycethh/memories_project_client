@@ -39,7 +39,7 @@ const App = () => {
           <Grid
             container
             justifyContent="space-between"
-            alignItems="strech"
+            alignItems="stretch"
             spacing={2}
           >
             <Grid item xs={12} sm={7}>
