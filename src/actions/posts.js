@@ -5,8 +5,9 @@ import * as api from "../api";
 //Action Creators
 export const getPosts = () => async (dispatch) => {
   try {
-    const { response } = await api.fetchPosts();
-    dispatch({ type: 'FETCH_ALL"', payload: response });
+    const { data } = await api.fetchPosts();
+    //action is the object, including type and payload
+    dispatch({ type: 'FETCH_ALL"', payload: data });
   } catch (error) {
     console.log(error.message);
   }
