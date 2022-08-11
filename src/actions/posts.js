@@ -1,8 +1,8 @@
 import * as api from "../api";
 
-// api.fetchPosts
+//Action Creators, api.fectchPosts()
 
-//Action Creators
+//GET all posts
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
@@ -15,10 +15,21 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+//Create a new post
 export const createPost = (newPost) => async (dispatch) => {
   try {
     const { data } = await api.createPost(newPost);
     dispatch({ type: "CREATE", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+//Update a post
+export const updatePost = (id, updatedPost) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePost(id, updatedPost);
+    dispatch({ type: "UPDATE", payload: data });
   } catch (error) {
     console.log(error.message);
   }
