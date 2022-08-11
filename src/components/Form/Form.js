@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import { Button, Typography, Paper, TextField } from "@material-ui/core";
 import Filebase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-//import the ceate action from the action
-import { createPost } from "../../actions/posts";
+//import actions from the action
+import { createPost, updatePost } from "../../actions/posts";
 
-const Form = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -19,10 +16,28 @@ const Form = () => {
     selectedFile: "",
   });
 
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  //find the seleted post
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((item) => item._id === currentId) : null
+  );
+
+  //use the useEffect to populate the form with the value of seleted post!!!
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    //pass in the "state", the postData that the user just created
-    dispatch(createPost(postData));
+
+    //THIS IS VERY CONFUSING HERE. We received the currentID from App, if currentid is selected, then the form will use to do the updatePost function
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      //pass in the "state", the postData that the user just created
+      dispatch(createPost(postData));
+    }
   };
 
   const handleClear = () => {
