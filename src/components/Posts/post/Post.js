@@ -59,6 +59,7 @@ const Post = ({ postItem }) => {
         </Button>
         <Button size="small" color="secondary" onClick={() => {}}>
           <DeleteIcon />
+          Delete
         </Button>
       </CardActions>
     </Card>

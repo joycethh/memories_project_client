@@ -11,7 +11,9 @@ const Posts = () => {
 
   //the "posts" is from combinereduder in reducers file
   // console.log("my posts", posts);
-  return (
+  return !posts.length ? (
+    <CircularProgress />
+  ) : (
     <Grid
       className={classes.container}
       container
