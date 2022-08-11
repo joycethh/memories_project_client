@@ -10,7 +10,7 @@ const Posts = () => {
   const posts = useSelector((state) => state.posts);
 
   //the "posts" is from combinereduder in reducers file
-  console.log(posts);
+  // console.log("my posts", posts);
   return (
     <Grid
       className={classes.container}
@@ -18,9 +18,9 @@ const Posts = () => {
       alignItems="stretch"
       spacing={3}
     >
-      {posts.map((post) => (
-        <Grid key={post._id} item xs={12} sm={6}>
-          <Post post={post} />
+      {posts.map((postItem) => (
+        <Grid key={postItem._id} item xs={12} sm={6}>
+          <Post postItem={postItem} />
         </Grid>
       ))}
     </Grid>
