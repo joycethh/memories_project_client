@@ -38,10 +38,19 @@ const Form = ({ currentId, setCurrentId }) => {
       //pass in the "state", the postData that the user just created
       dispatch(createPost(postData));
     }
+    //we want to clear the form after user done "editing" or 'creating", so we call clear function here
+    handleClear();
   };
 
   const handleClear = () => {
-    console.log("clear clicked");
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
   };
   return (
     <Paper className={classes.paper}>
@@ -51,7 +60,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={classes.form}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Creating"} a Memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
