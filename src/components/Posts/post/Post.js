@@ -55,8 +55,8 @@ const Post = ({ postItem, setCurrentId }) => {
         {postItem.title}
       </Typography>
       <CardContent>
-        <Typography className={classes.title} variant="body2" component="p">
-          {postItem.title}
+        <Typography variant="body2" component="p">
+          {postItem.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
