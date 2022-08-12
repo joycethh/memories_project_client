@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useStyles from "./styles";
 import { Button, Typography, Paper, TextField } from "@material-ui/core";
 import Filebase from "react-file-base64";
+
 import { useDispatch, useSelector } from "react-redux";
 
+import useStyles from "./styles";
 //import actions from the action
 import { createPost, updatePost } from "../../actions/posts";
 
@@ -28,9 +29,9 @@ const Form = ({ currentId, setCurrentId }) => {
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     //THIS IS VERY CONFUSING HERE. We received the currentID from App, if currentid is selected, then the form will use to do the updatePost function
     if (currentId) {
       dispatch(updatePost(currentId, postData));

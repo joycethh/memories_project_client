@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, AppBar, Typography, Grid, Grow } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-
+//import actions
 import { getPosts } from "./actions/posts";
 import memories from "./image/memories.png";
 import Posts from "./components/Posts/Posts";
