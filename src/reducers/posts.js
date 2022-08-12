@@ -18,7 +18,7 @@ export default (posts = [], action) => {
     }
     case "DELETE": {
       console.log("action", action);
-      return posts.filter((restPosts) => restPosts._id !== action.payload._id);
+      return posts.filter((restPosts) => restPosts._id !== action.payload);
     }
     default:
       return posts;
