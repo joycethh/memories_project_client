@@ -54,7 +54,7 @@ const Post = ({ postItem, setCurrentId }) => {
         </Button>
       </div>
       <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary" component="p">
           {postItem.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
@@ -73,7 +73,7 @@ const Post = ({ postItem, setCurrentId }) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={handleCount}>
-          <ThumbUpAltIcon /> Like {postItem.likeCount}
+          <ThumbUpAltIcon /> &nbsp; Like &nbsp; {postItem.likeCount}
         </Button>
         <Button size="small" color="secondary" onClick={handleDelete}>
           <DeleteIcon />
