@@ -1,4 +1,3 @@
-import "dotenv/config";
 import React, { useState } from "react";
 import {
   Avatar,
@@ -33,16 +32,14 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((preIsSignup) => !preIsSignup);
-    // setIsSignup((preStatus) => {
-    //   console.log(preStatus);
-    //   setIsSignup(!preStatus);
-    // });
     setShowPassword(false);
   };
 
   const googleSuccess = async (res) => console.log(res);
-  const googleFailure = (error) => console.log(error);
-  console.log("google sign in was unsuccessful. Try again later");
+  const googleFailure = (error) => {
+    console.log(error);
+    console.log("Google signin failed");
+  };
 
   return (
     <Container component="main" maxWidth="xs">
