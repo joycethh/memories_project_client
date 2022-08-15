@@ -1,3 +1,4 @@
+import "dotenv/config";
 import React, { useState } from "react";
 import {
   Avatar,
@@ -39,9 +40,9 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  const googleSuccess = (res) => console.log(res);
-  const googleFailure = () =>
-    console.log("google sign in was unsuccessful. Try again later");
+  const googleSuccess = async (res) => console.log(res);
+  const googleFailure = (error) => console.log(error);
+  console.log("google sign in was unsuccessful. Try again later");
 
   return (
     <Container component="main" maxWidth="xs">
@@ -92,9 +93,21 @@ const Auth = () => {
               />
             )}
           </Grid>
+
+          {/* local auth */}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            {isSignup ? "Sign Up" : "Sign In"}
+          </Button>
+
           {/* google auth */}
           <GoogleLogin
-            clientId="GOOGLE_ID"
+            clientId={process.env.REACT_APP_GOOGLE_ID}
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}
@@ -113,16 +126,6 @@ const Auth = () => {
             cookiePolicy="single_host_origin"
           />
 
-          {/* local auth */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            {isSignup ? "Sign Up" : "Sign In"}
-          </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
