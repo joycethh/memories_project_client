@@ -7,15 +7,17 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import useStyles from "./styles";
 
 import Input from "./Input";
-import Icon from "./icon";
+
 const Auth = () => {
   const classes = useStyles();
+  const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
@@ -35,7 +37,14 @@ const Auth = () => {
     setShowPassword(false);
   };
 
-  const googleSuccess = async (res) => console.log(res);
+  const googleSuccess = async (credentialResponse) => {
+    console.log(credentialResponse);
+    const userObject = jwt_decode(credentialResponse.credential);
+    console.log(userObject);
+    const result = jwt_decode(credentialResponse?.credential);
+    const token = credentialResponse?.credential;
+  };
+
   const googleFailure = (error) => {
     console.log(error);
     console.log("Google signin failed");
@@ -104,25 +113,27 @@ const Auth = () => {
 
           {/* google auth */}
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_ID}
-            render={(renderProps) => (
-              <Button
-                className={classes.googleButton}
-                color="primary"
-                fullWidth
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                startIcon={<Icon />}
-                variant="contained"
-              >
-                Google Sign In
-              </Button>
-            )}
             onSuccess={googleSuccess}
-            onFailure={googleFailure}
-            cookiePolicy="single_host_origin"
+            onError={() => {
+              console.log("Google Login Failed");
+            }}
           />
-
+          {/* no user: show sign in button */}
+          {/* have user: show log out button  */}
+          {user && (
+            <div>
+              <h3>{user.name}</h3>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  console.log("googleLogout" + googleLogout);
+                  googleLogout();
+                }}
+              >
+                Log out
+              </Button>
+            </div>
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
