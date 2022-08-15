@@ -9,7 +9,7 @@ export const Input = ({
   label,
   autoFocus,
   type,
-  handleShowPassoword,
+  handleShowPassword,
   half,
 }) => {
   return (
@@ -24,10 +24,10 @@ export const Input = ({
         autoFocus={autoFocus}
         type={type}
         InputProps={
-          name === "passoword" && {
+          name === "password" && {
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={handleShowPassoword}>
+                <IconButton onClick={handleShowPassword}>
                   {type === "password" ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
