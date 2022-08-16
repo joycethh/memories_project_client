@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import useStyles from "./styles";
@@ -17,6 +18,8 @@ import Input from "./Input";
 
 const Auth = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -38,16 +41,22 @@ const Auth = () => {
   };
 
   const googleSuccess = async (credentialResponse) => {
-    console.log(credentialResponse);
     const userObject = jwt_decode(credentialResponse.credential);
     console.log(userObject);
-    const result = jwt_decode(credentialResponse?.credential);
-    const token = credentialResponse?.credential;
+    const result = jwt_decode(credentialResponse.credential);
+    console.log(result);
+    const token = credentialResponse.credential;
+    console.log(token);
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+    } catch (error) {
+      console.log("google error" + error);
+    }
   };
 
   const googleFailure = (error) => {
     console.log(error);
-    console.log("Google signin failed");
+    console.log("Google login failed");
   };
 
   return (
@@ -112,12 +121,7 @@ const Auth = () => {
           </Button>
 
           {/* google auth */}
-          <GoogleLogin
-            onSuccess={googleSuccess}
-            onError={() => {
-              console.log("Google Login Failed");
-            }}
-          />
+          <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
           {/* no user: show sign in button */}
           {/* have user: show log out button  */}
           {user && (
