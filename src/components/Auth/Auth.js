@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -7,7 +8,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -19,8 +20,7 @@ import Input from "./Input";
 const Auth = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // eslint-disable-next-line
-  const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
@@ -41,14 +41,14 @@ const Auth = () => {
   };
 
   const googleSuccess = async (credentialResponse) => {
-    const userObject = jwt_decode(credentialResponse.credential);
-    console.log(userObject);
+    //userObject is the result we got
     const result = jwt_decode(credentialResponse.credential);
-    console.log(result);
     const token = credentialResponse.credential;
-    console.log(token);
+
     try {
       dispatch({ type: "AUTH", data: { result, token } });
+
+      navigate("/");
     } catch (error) {
       console.log("google error" + error);
     }
@@ -122,22 +122,7 @@ const Auth = () => {
 
           {/* google auth */}
           <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
-          {/* no user: show sign in button */}
-          {/* have user: show log out button  */}
-          {user && (
-            <div>
-              <h3>{user.name}</h3>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  console.log("googleLogout" + googleLogout);
-                  googleLogout();
-                }}
-              >
-                Log out
-              </Button>
-            </div>
-          )}
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
