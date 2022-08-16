@@ -1,5 +1,5 @@
-import "dotenv/config";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -8,15 +8,19 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import GoogleLogin from "react-google-login";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import useStyles from "./styles";
 
 import Input from "./Input";
-import Icon from "./icon";
+
 const Auth = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
@@ -33,16 +37,27 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((preIsSignup) => !preIsSignup);
-    // setIsSignup((preStatus) => {
-    //   console.log(preStatus);
-    //   setIsSignup(!preStatus);
-    // });
     setShowPassword(false);
   };
 
-  const googleSuccess = async (res) => console.log(res);
-  const googleFailure = (error) => console.log(error);
-  console.log("google sign in was unsuccessful. Try again later");
+  const googleSuccess = async (credentialResponse) => {
+    //userObject is the result we got
+    const result = jwt_decode(credentialResponse.credential);
+    const token = credentialResponse.credential;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+
+      navigate("/");
+    } catch (error) {
+      console.log("google error" + error);
+    }
+  };
+
+  const googleFailure = (error) => {
+    console.log(error);
+    console.log("Google login failed");
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -106,25 +121,7 @@ const Auth = () => {
           </Button>
 
           {/* google auth */}
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_ID}
-            render={(renderProps) => (
-              <Button
-                className={classes.googleButton}
-                color="primary"
-                fullWidth
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                startIcon={<Icon />}
-                variant="contained"
-              >
-                Google Sign In
-              </Button>
-            )}
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
-            cookiePolicy="single_host_origin"
-          />
+          <GoogleLogin onSuccess={googleSuccess} onError={googleFailure} />
 
           <Grid container justifyContent="flex-end">
             <Grid item>
