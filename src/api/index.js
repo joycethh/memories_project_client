@@ -1,9 +1,20 @@
 import axios from "axios";
 
-// const url = "http://localhost:5000/posts";
-// export const fetchPosts = () => axios.get(url);
-
 const API = axios.create({ baseURL: "http://localhost:5000" });
+
+//send token on each request so that AUth middleware can work;
+//check the user exists, and then get token.
+//The token is a string starting with Bearer, following with the actual token
+//returning req itself so that later the req can work on each req.
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
+  return req;
+});
 
 export const fetchPosts = () => API.get("/posts");
 export const createPost = (newPost) => API.post("/posts", newPost);
