@@ -16,7 +16,6 @@ export const getPosts = () => async (dispatch) => {
 
     //action is the object, including type and payload
     dispatch({ type: FETCH_ALL, payload: data });
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
