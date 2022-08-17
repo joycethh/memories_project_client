@@ -36,7 +36,6 @@ const Auth = () => {
   const [formData, setFormData] = useState(initialState);
 
   const handleShowPassword = () => {
-    console.log("handleShowPassword" + handleShowPassword);
     setShowPassword((preShowPassword) => !preShowPassword);
   };
 
@@ -63,6 +62,7 @@ const Auth = () => {
     //userObject is the result we got
     const result = jwt_decode(credentialResponse.credential);
     const token = credentialResponse.credential;
+    console.log("Google user result" + result);
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
