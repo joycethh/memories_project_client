@@ -18,7 +18,6 @@ export default (posts = [], action) => {
       );
     case UPDATE_LIKE: {
       console.log(action);
-
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );

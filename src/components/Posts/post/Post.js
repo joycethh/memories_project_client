@@ -62,6 +62,7 @@ const Post = ({ postItem, setCurrentId }) => {
       </>
     );
   };
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -111,16 +112,12 @@ const Post = ({ postItem, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
+          disabled={!user?.result}
           onClick={() => dispatch(likePost(postItem._id))}
         >
           <Likes />
         </Button>
-        <Button
-          size="small"
-          color="secondary"
-          disabled={!user?.result}
-          onClick={handleDelete}
-        >
+        <Button size="small" color="secondary" onClick={handleDelete}>
           <DeleteIcon />
           Delete
         </Button>
