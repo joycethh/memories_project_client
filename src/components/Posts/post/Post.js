@@ -76,7 +76,7 @@ const Post = ({ postItem, setCurrentId }) => {
           {moment(postItem.createdAt).fromNow()}
         </Typography>
       </div>
-      {(user?.result?.googleId === postItem?.creator ||
+      {(user?.result?.sub === postItem?.creator ||
         user?.result._id === postItem?.creator) && (
         <div className={classes.overlay2}>
           <Button
@@ -121,7 +121,7 @@ const Post = ({ postItem, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        {(user?.result?.googleId === postItem?.creator ||
+        {(user?.result?.sub === postItem?.creator ||
           user?.result._id === postItem?.creator) && (
           <Button size="small" color="secondary" onClick={handleDelete}>
             <DeleteIcon />
