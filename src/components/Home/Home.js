@@ -44,7 +44,6 @@ const Home = () => {
 
   const handleKeyDown = (e) => {
     if (e.key == "Enter") {
-      //search post
       searchPost();
     }
   };
@@ -57,6 +56,9 @@ const Home = () => {
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostBySearch({ search, tags: tags.join(",") }));
+      navigate(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       navigate("/");
     }
