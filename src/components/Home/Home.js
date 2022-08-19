@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 //import actions
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostBySearch } from "../../actions/posts";
 
 //import components
 import Posts from "../Posts/Posts";
@@ -55,8 +55,8 @@ const Home = () => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
 
   const searchPost = () => {
-    if (searchTitle.trim()) {
-      //dispatch  -- fetch search post
+    if (search.trim() || tags) {
+      dispatch(getPostBySearch({ search, tags: tags.join(",") }));
     } else {
       navigate("/");
     }
