@@ -4,11 +4,14 @@ import {
   UPDATE,
   DELETE,
   UPDATE_LIKE,
+  FETCH_BYSEARCH,
 } from "../contants/actionType";
 
 export default (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
+      return action.payload;
+    case FETCH_BYSEARCH:
       return action.payload;
     case CREATE:
       return [...posts, action.payload];

@@ -4,6 +4,7 @@ import {
   UPDATE,
   DELETE,
   UPDATE_LIKE,
+  FETCH_BYSEARCH,
 } from "../contants/actionType";
 import * as api from "../api";
 
@@ -27,11 +28,12 @@ export const getPostBySearch = (searchQuery) => async (dispatch) => {
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
-    console.log(data);
+    dispatch({ type: FETCH_BYSEARCH, payload: data });
   } catch (error) {
     console.log(error);
   }
 };
+
 //Create a new post
 export const createPost = (newPost) => async (dispatch) => {
   try {
