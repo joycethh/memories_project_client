@@ -43,7 +43,7 @@ const Home = () => {
   }, [currentId, dispatch]);
 
   const handleKeyDown = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       searchPost();
     }
   };
