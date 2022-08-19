@@ -75,7 +75,7 @@ const Auth = () => {
 
   const googleFailure = (error) => {
     console.log(error);
-    console.log("Google login failed");
+    console.log("Auth-googleFailure: Google login failed");
   };
 
   return (
