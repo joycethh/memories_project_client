@@ -11,11 +11,10 @@ import * as api from "../api";
 //Action Creators, api.fectchPosts()
 
 //GET all posts
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
-
-    //action is the object, including type and payload
+    const { data } = await api.fetchPosts(page);
+    console.log(data);
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error);

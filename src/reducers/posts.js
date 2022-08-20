@@ -6,28 +6,37 @@ import {
   UPDATE_LIKE,
   FETCH_BYSEARCH,
 } from "../contants/actionType";
-
-export default (posts = [], action) => {
+//as we receive object of data back from actions.
+//we want to rename the posts to state, and spread state data, define posts to action.payload
+export default (state = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
-      return action.payload;
+      return {
+        ...state,
+        posts: action.payload.postData,
+        currentPage: action.payload.currentPage,
+        numberOfPage: action.payload.numberOfPage,
+      };
     case FETCH_BYSEARCH:
-      return action.payload;
+      return {
+        ...state,
+        posts: action.payload,
+      };
     case CREATE:
-      return [...posts, action.payload];
+      return [...state, action.payload];
     case UPDATE:
-      return posts.map((post) =>
-        post._id === action.payload._id ? action.payload : post
+      return state.map((post) =>
+        state._id === action.payload._id ? action.payload : post
       );
     case UPDATE_LIKE: {
       console.log(action);
-      return posts.map((post) =>
+      return state.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
     }
     case DELETE:
-      return posts.filter((restPosts) => restPosts._id !== action.payload);
+      return state.filter((restPosts) => restPosts._id !== action.payload);
     default:
-      return posts;
+      return state;
   }
 };
