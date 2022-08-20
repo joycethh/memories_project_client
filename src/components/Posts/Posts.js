@@ -7,11 +7,9 @@ import useStyles from "./styles";
 
 const Posts = ({ setCurrentId }) => {
   const classes = useStyles();
-  const posts = useSelector((state) => state.posts);
-
-  //the "posts" is from combinereduder in reducers file
-  // console.log("my posts", posts);
-  return !posts.length ? (
+  const { posts } = useSelector((state) => state.posts);
+  console.log({ posts });
+  return !posts?.length ? (
     <CircularProgress />
   ) : (
     <Grid
