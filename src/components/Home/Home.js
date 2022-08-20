@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 //import actions
-import { getPosts, getPostBySearch } from "../../actions/posts";
+import { getPostBySearch } from "../../actions/posts";
 
 //import components
 import Posts from "../Posts/Posts";
@@ -38,9 +38,9 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [currentId, dispatch]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -78,7 +78,7 @@ const Home = () => {
             <Posts setCurrentId={setCurrentId} />
           </Grid>
 
-          <Grid xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <AppBar
               className={classes.appBarSearch}
               position="static"
@@ -114,7 +114,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination />
+              <Pagination page={page} />
             </Paper>
           </Grid>
         </Grid>
