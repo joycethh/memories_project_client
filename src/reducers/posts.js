@@ -5,11 +5,23 @@ import {
   DELETE,
   UPDATE_LIKE,
   FETCH_BYSEARCH,
+  START_LOADING,
+  END_LOADING,
 } from "../contants/actionType";
 //as we receive object of data back from actions.
 //we want to rename the posts to state, and spread state data, define posts to action.payload
-export default (state = [], action) => {
+export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case END_LOADING:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case FETCH_ALL:
       return {
         ...state,
@@ -23,19 +35,31 @@ export default (state = [], action) => {
         posts: action.payload,
       };
     case CREATE:
-      return [...state, action.payload];
+      return { ...state, posts: [...state.posts, action.payload] };
     case UPDATE:
-      return state.map((post) =>
-        state._id === action.payload._id ? action.payload : post
-      );
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          state._id === action.payload._id ? action.payload : post
+        ),
+      };
     case UPDATE_LIKE: {
       console.log(action);
-      return state.map((post) =>
-        post._id === action.payload._id ? action.payload : post
-      );
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
     }
     case DELETE:
-      return state.filter((restPosts) => restPosts._id !== action.payload);
+      return {
+        ...state,
+        posts: state.posts.filter(
+          (restPosts) => restPosts._id !== action.payload
+        ),
+      };
+
     default:
       return state;
   }
