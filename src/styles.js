@@ -15,9 +15,9 @@ export default makeStyles((theme) => ({
   image: {
     marginLeft: "15px",
   },
-  [theme.breakpoints.down("sm")]: {
-    gridContainer: {
-      direction: "column-reverse",
-    },
-  },
+  // [theme.breakpoints.down("sm")]: {
+  //   gridContainer: {
+  //     direction: "column-reverse",
+  //   },
+  // },
 }));

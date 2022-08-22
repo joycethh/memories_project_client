@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AppBar, Avatar, Toolbar, Typography, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
+import decode from "jwt-decode";
+
 import useStyles from "./styles";
 
-import memories from "../../image/memories.png";
+import memoriesLogo from "../../image/memories-logo.png";
+import memoriesText from "../../image/memories-text.png";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -23,7 +26,13 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // const token = user?.token;
+    //check if token expired.
+    const token = user?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -32,25 +41,17 @@ const Navbar = () => {
       className={classes.appBar}
       position="static"
       color="inherit"
-      height="60"
+      height="55"
     >
-      <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to="/"
-          className={classes.heading}
-          variant="h2"
-          align="center"
-        >
-          Memories
-        </Typography>
+      <Link to="/" className={classes.brandContainer}>
+        <img src={memoriesText} alt="brand" height="45px" />
         <img
           className={classes.image}
-          src={memories}
-          alt="memories"
-          height="60"
+          src={memoriesLogo}
+          alt="logo"
+          height="35"
         />
-      </div>
+      </Link>
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.toolbar}>

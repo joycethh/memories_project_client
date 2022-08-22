@@ -64,7 +64,7 @@ const Post = ({ postItem, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} raised elevation={6}>
       <CardMedia
         className={classes.media}
         image={postItem.selectedFile}
@@ -76,17 +76,21 @@ const Post = ({ postItem, setCurrentId }) => {
           {moment(postItem.createdAt).fromNow()}
         </Typography>
       </div>
-      <div className={classes.overlay2}>
-        <Button
-          style={{ color: "white" }}
-          size="small"
-          onClick={() => {
-            setCurrentId(postItem._id);
-          }}
-        >
-          <MoreHorizIcon fontSize="medium" />
-        </Button>
-      </div>
+      {(user?.result?.sub === postItem?.creator ||
+        user?.result._id === postItem?.creator) && (
+        <div className={classes.overlay2}>
+          <Button
+            style={{ color: "white" }}
+            size="small"
+            onClick={() => {
+              setCurrentId(postItem._id);
+            }}
+          >
+            <MoreHorizIcon fontSize="medium" />
+          </Button>
+        </div>
+      )}
+
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="p">
           {postItem.tags.map((tag) => `#${tag} `)}
@@ -117,10 +121,13 @@ const Post = ({ postItem, setCurrentId }) => {
         >
           <Likes />
         </Button>
-        <Button size="small" color="secondary" onClick={handleDelete}>
-          <DeleteIcon />
-          Delete
-        </Button>
+        {(user?.result?.sub === postItem?.creator ||
+          user?.result._id === postItem?.creator) && (
+          <Button size="small" color="secondary" onClick={handleDelete}>
+            <DeleteIcon />
+            Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

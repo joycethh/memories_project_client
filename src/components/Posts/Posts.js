@@ -7,11 +7,13 @@ import useStyles from "./styles";
 
 const Posts = ({ setCurrentId }) => {
   const classes = useStyles();
-  const posts = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
+  console.log({ posts });
+  console.log(isLoading);
 
-  //the "posts" is from combinereduder in reducers file
-  // console.log("my posts", posts);
-  return !posts.length ? (
+  if (!posts.length && !isLoading) return "no posts";
+
+  return !posts?.length ? (
     <CircularProgress />
   ) : (
     <Grid
@@ -21,7 +23,7 @@ const Posts = ({ setCurrentId }) => {
       spacing={3}
     >
       {posts.map((postItem, itemId) => (
-        <Grid key={postItem._id} item xs={12} sm={6}>
+        <Grid key={postItem._id} item xs={12} sm={12} md={6} lg={3}>
           <Post postItem={postItem} setCurrentId={setCurrentId} />
         </Grid>
       ))}
