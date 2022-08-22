@@ -5,6 +5,8 @@ import {
   DELETE,
   UPDATE_LIKE,
   FETCH_BYSEARCH,
+  START_LOADING,
+  END_LOADING,
 } from "../contants/actionType";
 import * as api from "../api";
 
@@ -13,9 +15,10 @@ import * as api from "../api";
 //GET all posts
 export const getPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts(page);
-    console.log(data);
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchPosts(page); //data object includes postData, current page, total number of pages
     dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -35,10 +38,12 @@ export const getSinglePost = (id) => async (dispatch) => {
 //Get posts by search
 export const getPostBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
     dispatch({ type: FETCH_BYSEARCH, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -47,6 +52,7 @@ export const getPostBySearch = (searchQuery) => async (dispatch) => {
 //Create a new post
 export const createPost = (newPost) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createPost(newPost);
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
