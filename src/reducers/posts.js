@@ -7,6 +7,7 @@ import {
   FETCH_BYSEARCH,
   START_LOADING,
   END_LOADING,
+  FETCH_SINGLE,
 } from "../contants/actionType";
 //as we receive object of data back from actions.
 //we want to rename the posts to state, and spread state data, define posts to action.payload
@@ -28,6 +29,11 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         posts: action.payload.postData,
         currentPage: action.payload.currentPage,
         numberOfPage: action.payload.numberOfPage,
+      };
+    case FETCH_SINGLE:
+      return {
+        ...state,
+        post: action.payload,
       };
     case FETCH_BYSEARCH:
       return {
