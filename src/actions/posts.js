@@ -7,6 +7,7 @@ import {
   FETCH_BYSEARCH,
   START_LOADING,
   END_LOADING,
+  FETCH_SINGLE,
 } from "../contants/actionType";
 import * as api from "../api";
 
@@ -24,12 +25,12 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
-//GET all posts
+// GET single posts
 export const getSinglePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPost(id);
-    console.log(data);
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchSinglePost(id);
+    dispatch({ type: FETCH_SINGLE, payload: data });
   } catch (error) {
     console.log(error);
   }
