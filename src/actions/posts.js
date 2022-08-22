@@ -31,6 +31,7 @@ export const getSinglePost = (id) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const { data } = await api.fetchSinglePost(id);
     dispatch({ type: FETCH_SINGLE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
