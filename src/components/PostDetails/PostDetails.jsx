@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { getSinglePost } from "../../actions/posts";
+import { getPostBySearch, getSinglePost } from "../../actions/posts";
 import useStyles from "./styles";
 
 const PostDetails = () => {
@@ -23,7 +23,19 @@ const PostDetails = () => {
     dispatch(getSinglePost(id));
   }, [id]);
 
+  //recomend post
+  useEffect(() => {
+    if (post) {
+      dispatch(getPostBySearch({ search: "none", tags: post?.tags.join(",") }));
+    }
+  }, [post]);
+
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+
   if (!post) return null;
+
+  const openPost = (_id) => navigate(`/posts/${_id}`);
+
   if (isLoading) {
     return (
       <Paper elevlation={6} className={classes.loadingPaper}>
@@ -71,6 +83,39 @@ const PostDetails = () => {
           />
         </div>
       </div>
+      {recommendedPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom vairant="h5">
+            You might also like:
+          </Typography>
+          <Divider />
+          <div className={classes.recommendedPosts}>
+            {recommendedPosts.map(
+              ({ title, name, message, likes, selectedFile, _id }) => (
+                <div
+                  style={{ margin: "20px", cursor: "pointer" }}
+                  onClick={() => openPost(_id)}
+                  key={_id}
+                >
+                  <Typography gutterBottom variant="h6">
+                    {title}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    {name}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    {message}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle1">
+                    Likes: {likes.length}
+                  </Typography>
+                  <img src={selectedFile} width="200px" height="200px" />
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      )}
     </Paper>
   );
 };
