@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Paper, Typography, CircularProcess, Divider } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { moment } from "moment";
+import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { getSinglePost } from "../../actions/posts";
@@ -17,6 +17,7 @@ const PostDetails = () => {
   useEffect(() => {
     dispatch(getSinglePost(id));
   }, [id]);
+
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
@@ -52,10 +53,7 @@ const PostDetails = () => {
         <div className={classes.imageSection}>
           <img
             className={classes.media}
-            src={
-              post.selectedFile ||
-              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-            }
+            src={post.selectedFile}
             alt={post.title}
           />
         </div>
