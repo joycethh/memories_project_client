@@ -21,6 +21,17 @@ export const getPosts = (page) => async (dispatch) => {
   }
 };
 
+//GET all posts
+export const getSinglePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPost(id);
+    console.log(data);
+    dispatch({ type: FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Get posts by search
 export const getPostBySearch = (searchQuery) => async (dispatch) => {
   try {
