@@ -3,12 +3,15 @@ import { Button, Typography, Paper, TextField } from "@material-ui/core";
 import Filebase from "react-file-base64";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import useStyles from "./styles";
 //import actions from the action
 import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
+  const navigate = useNavigate();
+
   const [postData, setPostData] = useState({
     // creator: "",
     title: "",
@@ -24,7 +27,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   //find the seleted post
   const post = useSelector((state) =>
-    currentId ? state.posts.find((item) => item._id === currentId) : null
+    currentId ? state.posts.posts.find((item) => item._id === currentId) : null
   );
 
   //use the useEffect to populate the form with the value of seleted post!!!
@@ -43,7 +46,7 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       //pass in the "state", the postData that the user just created
       // dispatch(createPost(postData));
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     }
     //we want to clear the form after user done "editing" or 'creating", so we call clear function here
     handleClear();
