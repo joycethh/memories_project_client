@@ -62,7 +62,7 @@ const Auth = () => {
     //userObject is the result we got
     const result = jwt_decode(credentialResponse.credential);
     const token = credentialResponse.credential;
-    console.log("Google user result" + result);
+    console.log("Google user result");
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
