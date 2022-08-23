@@ -34,7 +34,7 @@ const PostDetails = () => {
 
   if (!post) return null;
 
-  const openPost = (_id) => navigate(`/posts/${_id}`);
+  const openPost = (_id) => navigate(`/posts/${_id}`, { replace: true });
 
   if (isLoading) {
     return (
