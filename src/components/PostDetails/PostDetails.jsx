@@ -21,6 +21,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getSinglePost(id));
+    // eslint-disable-next-line
   }, [id]);
 
   //recomend post
@@ -28,6 +29,7 @@ const PostDetails = () => {
     if (post) {
       dispatch(getPostBySearch({ search: "none", tags: post?.tags.join(",") }));
     }
+    // eslint-disable-next-line
   }, [post]);
 
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
