@@ -9,10 +9,12 @@ import Home from "./components/Home/Home";
 import PostDetails from "./components/PostDetails/PostDetails";
 import Auth from "./components/Auth/Auth";
 
+const ID = process.env.REACT_APP_GOOGLE_ID;
+
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   return (
-    <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_ID}`}>
+    <GoogleOAuthProvider clientId={ID}>
       <BrowserRouter>
         <Container maxWidth="xl">
           <Navbar />
