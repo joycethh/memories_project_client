@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({
+  baseURL: "https://mern-memories-social-media-app.herokuapp.com/",
+});
 
 //send token on each request so that AUth middleware can work;
 //check the user exists, and then get token.
