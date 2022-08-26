@@ -1,5 +1,5 @@
 {
-  "proxy": "https://mern-memories-social-media-app.herokuapp.com/",
+  "proxy": "https://mern-stack-share-memories.herokuapp.com/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
