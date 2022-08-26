@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://mern-memories-social-media-app.herokuapp.com/",
+  baseURL: "https://mern-stack-share-memories.herokuapp.com/",
 });
 
 //send token on each request so that AUth middleware can work;
