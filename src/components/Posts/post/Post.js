@@ -56,7 +56,6 @@ const Post = ({ postItem, setCurrentId }) => {
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
-        &nbsp;Like
       </>
     );
   };
@@ -137,7 +136,6 @@ const Post = ({ postItem, setCurrentId }) => {
           user?.result._id === postItem?.creator) && (
           <Button size="small" color="secondary" onClick={handleDelete}>
             <DeleteIcon />
-            Delete
           </Button>
         )}
       </CardActions>
