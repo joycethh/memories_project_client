@@ -129,7 +129,9 @@ const Post = ({ postItem, setCurrentId }) => {
             dispatch(likePost(postItem._id));
           }}
         >
-          <Likes />
+          {/* <Likes /> */}
+          <ThumbUpAltOutlined fontSize="small" />
+          {postItem.likeCount}
         </Button>
 
         {(user?.result?.sub === postItem?.creator ||
