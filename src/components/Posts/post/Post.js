@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+// import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
@@ -30,35 +30,35 @@ const Post = ({ postItem, setCurrentId }) => {
     dispatch(deletePost(postItem._id));
   };
 
-  const Likes = () => {
-    if (postItem.likes.length > 0) {
-      return postItem.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
-      ) ? (
-        <>
-          <ThumbUpAltIcon fontSize="small" />
-          &nbsp;
-          {postItem.likes.length > 2
-            ? `You and ${postItem.likes.length - 1} others`
-            : `${postItem.likes.length} like${
-                postItem.likes.length > 1 ? "s" : ""
-              }`}
-        </>
-      ) : (
-        <>
-          <ThumbUpAltOutlined fontSize="small" />
-          &nbsp;{postItem.likes.length}{" "}
-          {postItem.likes.length === 1 ? "Like" : "Likes"}
-        </>
-      );
-    }
+  // const Likes = () => {
+  //   if (postItem.likes.length > 0) {
+  //     return postItem.likes.find(
+  //       (like) => like === (user?.result?.googleId || user?.result?._id)
+  //     ) ? (
+  //       <>
+  //         <ThumbUpAltIcon fontSize="small" />
+  //         &nbsp;
+  //         {postItem.likes.length > 2
+  //           ? `You and ${postItem.likes.length - 1} others`
+  //           : `${postItem.likes.length} like${
+  //               postItem.likes.length > 1 ? "s" : ""
+  //             }`}
+  //       </>
+  //     ) : (
+  //       <>
+  //         <ThumbUpAltOutlined fontSize="small" />
+  //         &nbsp;{postItem.likes.length}{" "}
+  //         {postItem.likes.length === 1 ? "Like" : "Likes"}
+  //       </>
+  //     );
+  //   }
 
-    return (
-      <>
-        <ThumbUpAltOutlined fontSize="small" />
-      </>
-    );
-  };
+  //   return (
+  //     <>
+  //       <ThumbUpAltOutlined fontSize="small" />
+  //     </>
+  //   );
+  // };
 
   const openPost = () => navigate(`/posts/${postItem._id}`);
 
