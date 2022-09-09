@@ -84,11 +84,20 @@ export const deletePost = (id) => async (dispatch) => {
 };
 
 //Update likes
-export const likePost = (id) => async (dispatch) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
-  try {
-    const { data } = await api.likePost(id, user?.token);
+// export const likePost = (id) => async (dispatch) => {
+//   const user = JSON.parse(localStorage.getItem("profile"));
+//   try {
+//     const { data } = await api.likePost(id, user?.token);
 
+//     dispatch({ type: UPDATE_LIKE, payload: data });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id);
+    console.log("like data", data);
     dispatch({ type: UPDATE_LIKE, payload: data });
   } catch (error) {
     console.log(error);

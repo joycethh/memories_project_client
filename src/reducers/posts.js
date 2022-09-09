@@ -49,12 +49,21 @@ export default (state = { isLoading: true, posts: [] }, action) => {
           state._id === action.payload._id ? action.payload : post
         ),
       };
+    // case UPDATE_LIKE: {
+    //   console.log(action);
+    //   return {
+    //     ...state,
+    //     posts: state.posts.map((post) =>
+    //       post._id === action.payload._id ? action.payload : post
+    //     ),
+    //   };
+    // }
     case UPDATE_LIKE: {
-      console.log(action);
+      console.log("like action", action);
       return {
         ...state,
         posts: state.posts.map((post) =>
-          post._id === action.payload._id ? action.payload : post
+          state._id === action.payload._id ? action.payload : post
         ),
       };
     }

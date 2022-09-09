@@ -124,8 +124,11 @@ const Post = ({ postItem, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          disabled={!user?.result}
-          onClick={() => dispatch(likePost(postItem._id))}
+          // disabled={!user?.result}
+          onClick={() => {
+            console.log("like button is clicked");
+            dispatch(likePost(postItem._id));
+          }}
         >
           <Likes />
         </Button>
